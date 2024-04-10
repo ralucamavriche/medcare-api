@@ -1,14 +1,14 @@
-const Appointment = require("../models/appointment.model");
-const CustomApiError = require("../utils/CustomApiError");
+const Appointment = require('../models/appointment.model')
+const CustomApiError = require('../utils/CustomApiError')
 
 /**
  * Get all appointments
  * @returns {Promise<Appointment>}
  */
 const getAppointments = async () => {
-    const appointments = await Appointment.find({});
-    return appointments;
-};
+  const appointments = await Appointment.find({})
+  return appointments
+}
 
 /**
  * Create an appointment
@@ -16,7 +16,7 @@ const getAppointments = async () => {
  * @returns {Promise<Appointment>}
  */
 const createAppointment = async (appointment) => {
-    return Appointment.create(appointment)
+  return Appointment.create(appointment)
 }
 
 /**
@@ -25,11 +25,11 @@ const createAppointment = async (appointment) => {
  * @returns {Promise<Appointment>}
  */
 const getAppointmentById = async (id) => {
-    const appoiment = await Appointment.findById(id);
-    if (!appoiment) {
-        throw new CustomApiError(404, 'Appointment not found!')
-    }
-    return appoiment;
+  const appoiment = await Appointment.findById(id)
+  if (!appoiment) {
+    throw new CustomApiError(404, 'Appointment not found!')
+  }
+  return appoiment
 }
 
 /**
@@ -39,15 +39,15 @@ const getAppointmentById = async (id) => {
  * @returns {Promise<Appointment>}
  */
 const updateAppointment = async (id, updateBody) => {
-    const appointment = await Appointment.findById(id)
+  const appointment = await Appointment.findById(id)
 
-    if (!appointment) {
-        throw new CustomApiError(404, 'Appointment not found!')
-    }
+  if (!appointment) {
+    throw new CustomApiError(404, 'Appointment not found!')
+  }
 
-    Object.assign(appointment, updateBody);
-    await appointment.save();
-    return appointment;
+  Object.assign(appointment, updateBody)
+  await appointment.save()
+  return appointment
 }
 
 /**
@@ -56,19 +56,19 @@ const updateAppointment = async (id, updateBody) => {
  * @returns {Promise<Appointment>}
  */
 const deleteAppointment = async (id) => {
-    const appointment = await Appointment.findById(id);
+  const appointment = await Appointment.findById(id)
 
-    if (!appointment) {
-        throw new CustomApiError(404, 'Appointment not found!');
-    }
-    await appointment.deleteOne();
-    return appointment;
+  if (!appointment) {
+    throw new CustomApiError(404, 'Appointment not found!')
+  }
+  await appointment.deleteOne()
+  return appointment
 }
 
 module.exports = {
-    getAppointments,
-    createAppointment,
-    getAppointmentById,
-    updateAppointment,
-    deleteAppointment
-} 
+  getAppointments,
+  createAppointment,
+  getAppointmentById,
+  updateAppointment,
+  deleteAppointment
+}

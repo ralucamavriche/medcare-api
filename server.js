@@ -1,57 +1,61 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const helmet = require("helmet");
-const cors = require("cors");
-const routes = require("./src/routes/v1");
-const app = express();
-const config = require('./src/config/env');
-const CustomApiError = require('./src/utils/CustomApiError');
-const httpStatus = require('http-status');
-const http = require('http')
+const express = require('express')
+const mongoose = require('mongoose')
+const helmet = require('helmet')
+const cors = require('cors')
+const routes = require('./src/routes/v1')
+const config = require('./src/config')
+const CustomApiError = require('./src/utils/CustomApiError')
+const { StatusCodes, ReasonPhrases } = require('http-status-codes')
 
-app.use(express.json());
+const app = express()
+
+app.use(express.json())
 
 // add security HTTP headers
-app.use(helmet());
+app.use(helmet())
 
-app.use(cors());
-app.options("*", cors());
+// cors
+app.use(cors())
+app.options('*', cors())
 
-app.get("/", (req, res) => {
-  res.send({
-    message: "Hello Raluca",
-  });
-});
+app.get('/', (_, res) =>
+  res.status(StatusCodes.OK).send({
+    message: 'Hello Raluca',
+    msg: ReasonPhrases.OK,
+    status: StatusCodes.OK
+  })
+)
 
-app.use('/v1', routes);
+app.use('/v1', routes)
 
 // send back a 404 error for any unknown api request
-app.use((req, res, next) => {
-  next(new CustomApiError(httpStatus.NOT_FOUND, http.STATUS_CODES[httpStatus.NOT_FOUND]));
-});
+app.use((req, __, next) => {
+  return next(
+    new CustomApiError(
+      StatusCodes.NOT_FOUND,
+      `Resource not found at path: ${req.url}`
+    )
+  )
+})
 
-app.use((err, req, res, next) => {
-  let { statusCode = 500, message = 'Something went wrong!' } = err;
+app.use((err, _, res, __) => {
+  const {
+    message = ReasonPhrases.INTERNAL_SERVER_ERROR,
+    statusCode = StatusCodes.INTERNAL_SERVER_ERROR
+  } = err
 
-  res.status(statusCode).send({
-    error: message
+  return res.status(statusCode).send({
+    error: message,
+    statusCode
   })
 })
 
-// app.use((req, res, next) => {
-
-//   next(new CustomApiError(httpStatus.NOT_FOUND, 'Not found'));
-// });
-
-// // convert error to ApiError, if needed
-// app.use(errorConverter);
-
-
-//Connect to MongoDB
 mongoose
   .connect(config.MONGODB_URL)
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
-
-app.listen(config.PORT, () => console.log(`Server started on port ${config.PORT}`));
-
+  .then(() => {
+    console.log('MongoDB Connected...')
+    app.listen(config.PORT, () =>
+      console.log(`Server started on port ${config.PORT}`)
+    )
+  })
+  .catch((err) => console.log(err))
