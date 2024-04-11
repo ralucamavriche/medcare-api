@@ -2,10 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const helmet = require('helmet')
 const cors = require('cors')
-const routes = require('./src/routes/v1')
-const config = require('./src/config')
-const CustomApiError = require('./src/utils/CustomApiError')
+const swaggerUi = require('swagger-ui-express')
+const routes = require('./routes/v1')
+const config = require('./config')
+const CustomApiError = require('./utils/CustomApiError')
 const { StatusCodes, ReasonPhrases } = require('http-status-codes')
+
+const swaggerDocument = require('./docs/swagger.json')
 
 const app = express()
 
@@ -25,6 +28,8 @@ app.get('/', (_, res) =>
     status: StatusCodes.OK
   })
 )
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use('/v1', routes)
 
