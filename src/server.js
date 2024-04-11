@@ -1,66 +1,38 @@
-const express = require('express')
+const app = require('./app')
 const mongoose = require('mongoose')
-const helmet = require('helmet')
-const cors = require('cors')
-const swaggerUi = require('swagger-ui-express')
-const routes = require('./routes/v1')
 const config = require('./config')
-const CustomApiError = require('./utils/CustomApiError')
-const { StatusCodes, ReasonPhrases } = require('http-status-codes')
 
-const swaggerDocument = require('./docs/swagger.json')
-
-const app = express()
-
-app.use(express.json())
-
-// add security HTTP headers
-app.use(helmet())
-
-// cors
-app.use(cors())
-app.options('*', cors())
-
-app.get('/', (_, res) =>
-  res.status(StatusCodes.OK).send({
-    message: 'Hello Raluca',
-    msg: ReasonPhrases.OK,
-    status: StatusCodes.OK
-  })
-)
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
-app.use('/v1', routes)
-
-// send back a 404 error for any unknown api request
-app.use((req, __, next) => {
-  return next(
-    new CustomApiError(
-      StatusCodes.NOT_FOUND,
-      `Resource not found at path: ${req.url}`
-    )
-  )
-})
-
-app.use((err, _, res, __) => {
-  const {
-    message = ReasonPhrases.INTERNAL_SERVER_ERROR,
-    statusCode = StatusCodes.INTERNAL_SERVER_ERROR
-  } = err
-
-  return res.status(statusCode).send({
-    error: message,
-    statusCode
-  })
-})
+let server
 
 mongoose
   .connect(config.MONGODB_URL)
   .then(() => {
     console.log('MongoDB Connected...')
-    app.listen(config.PORT, () =>
+    server = app.listen(config.PORT, () =>
       console.log(`Server started on port ${config.PORT}`)
     )
   })
   .catch((err) => console.log(err))
+
+const unexpectedErrorHandler = (error) => {
+  console.log('[ERROR_HANDLER]: Cause:', error)
+  console.log('[ERROR_HANDLER]: Closing server...:')
+
+  if (server) {
+    server.close(() => process.exit(1))
+  } else {
+    process.exit(1)
+  }
+}
+
+const handleSIGTERM = () => {
+  console.log('[SIGTERM] event received')
+  if (server) {
+    server.close()
+  }
+}
+
+process.on('uncaughtException', unexpectedErrorHandler)
+process.on('unhandleRejection', unexpectedErrorHandler)
+
+process.on('SIGTERM', handleSIGTERM)

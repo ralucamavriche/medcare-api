@@ -1,0 +1,12 @@
+// .eslintrc.json
+{
+  "env": {
+    "node": true,
+    "jest/globals": true
+  },
+  "extends": ["eslint:recommended", "plugin:jest/recommended"],
+  "plugins": ["jest"],
+  "rules": {
+    // Add any custom ESLint rules or overrides here
+  }
+}

@@ -4,7 +4,8 @@
   "description": "",
   "main": "./src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "dev": "nodemon src/server.js",
     "lint": "standard",
     "lint:js": "standard \"src/**/*.js\"",
@@ -25,7 +26,23 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.4",
+    "eslint-plugin-jest": "^28.2.0",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0",
-    "standard": "^17.1.0"
+    "standard": "^17.1.0",
+    "supertest": "^6.3.4"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "xdescribe",
+      "before",
+      "after",
+      "it",
+      "expect",
+      "jest",
+      "afterEach"
+    ]
   }
 }

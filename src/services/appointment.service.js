@@ -16,7 +16,8 @@ const getAppointments = async () => {
  * @returns {Promise<Appointment>}
  */
 const createAppointment = async (appointment) => {
-  return Appointment.create(appointment)
+  const appointmentResponse = await Appointment.create(appointment)
+  return appointmentResponse
 }
 
 /**
@@ -46,8 +47,8 @@ const updateAppointment = async (id, updateBody) => {
   }
 
   Object.assign(appointment, updateBody)
-  await appointment.save()
-  return appointment
+  const appointemntResponse = await appointment.save()
+  return appointemntResponse
 }
 
 /**
