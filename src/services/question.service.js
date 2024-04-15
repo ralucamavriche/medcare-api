@@ -1,5 +1,7 @@
 const Question = require('../models/question.model')
 const CustomApiError = require('../utils/CustomApiError')
+const { StatusCodes } = require('http-status-codes')
+
 
 /**
  * Get all guestions
@@ -28,7 +30,7 @@ const getQuestionById = async (id) => {
   const question = await Question.findById(id)
   // console.log(question);
   if (!question) {
-    throw new CustomApiError(404, 'Question not found')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Question not found')
   }
   return question
 }
@@ -43,7 +45,7 @@ const updateQuestion = async (id, updateBody) => {
   const question = await Question.findById(id)
 
   if (!question) {
-    throw new CustomApiError(404, 'Question not found')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Question not found')
   }
   Object.assign(question, updateBody)
   await question.save()
@@ -59,7 +61,7 @@ const deleteQuestion = async (id) => {
   const question = await Question.findById(id)
 
   if (!question) {
-    throw new CustomApiError(404, 'Question not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Question not found!')
   }
   await question.deleteOne()
   return question

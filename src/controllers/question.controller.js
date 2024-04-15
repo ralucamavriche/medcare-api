@@ -1,9 +1,10 @@
 const { questionService } = require('../services')
 const catchAsync = require('../utils/catchAsync')
+const { StatusCodes } = require('http-status-codes')
 
 const getQuestions = catchAsync(async (req, res) => {
   const questions = await questionService.getQuestions()
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     questions
   })
 })
@@ -13,7 +14,7 @@ const getQuestionById = catchAsync(async (req, res) => {
   const id = req.params.id
   console.log(id)
   const question = await questionService.getQuestionById(id)
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     question
   })
 })
@@ -21,7 +22,7 @@ const getQuestionById = catchAsync(async (req, res) => {
 const createQuestion = catchAsync(async (req, res) => {
   const { question, answer } = req.body
   const newQuestion = await questionService.createQuestion({ question, answer })
-  res.status(201).send({
+  res.status(StatusCodes.CREATED).send({
     newQuestion
   })
 })
@@ -29,7 +30,7 @@ const createQuestion = catchAsync(async (req, res) => {
 const updateQuestion = catchAsync(async (req, res) => {
   const id = req.params.id
   const updateQuestion = await questionService.updateQuestion(id, req.body)
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     updateQuestion
   })
 })
@@ -37,7 +38,7 @@ const updateQuestion = catchAsync(async (req, res) => {
 const deleteQuestion = catchAsync(async (req, res) => {
   const id = req.params.id
   await questionService.deleteQuestion(id)
-  res.status(200).send({})
+  res.status(StatusCodes.OK).send({})
 })
 
 module.exports = {

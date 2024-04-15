@@ -1,5 +1,7 @@
 const { appointmentService } = require('../services')
 const catchAsync = require('../utils/catchAsync')
+const { StatusCodes } = require('http-status-codes')
+
 
 const createAppointment = catchAsync(async (req, res) => {
   const { title, description, startDate, endDate, author } = req.body
@@ -11,14 +13,14 @@ const createAppointment = catchAsync(async (req, res) => {
     author
   })
 
-  res.status(201).send({
+  res.status(StatusCodes.CREATED).send({
     appointment
   })
 })
 
 const getAppointments = catchAsync(async (req, res) => {
   const appointments = await appointmentService.getAppointments()
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     appointments
   })
 })
@@ -26,7 +28,7 @@ const getAppointments = catchAsync(async (req, res) => {
 const getAppointmentById = catchAsync(async (req, res) => {
   const id = req.params.id
   const appointment = await appointmentService.getAppointmentById(id)
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     appointment
   })
 })
@@ -36,7 +38,7 @@ const updateAppointment = catchAsync(async (req, res) => {
   const updateBody = req.body
   const appointment = await appointmentService.updateAppointment(id, updateBody)
 
-  res.status(200).send({
+  res.status(StatusCodes.OK).send({
     appointment
   })
 })
@@ -44,7 +46,7 @@ const updateAppointment = catchAsync(async (req, res) => {
 const deleteAppointment = catchAsync(async (req, res) => {
   const id = req.params.id
   const appointment = await appointmentService.deleteAppointment(id)
-  res.status(200).send(appointment)
+  res.status(StatusCodes.OK).send(appointment)
 })
 
 module.exports = {

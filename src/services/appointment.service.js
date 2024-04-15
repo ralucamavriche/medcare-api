@@ -1,5 +1,6 @@
 const Appointment = require('../models/appointment.model')
 const CustomApiError = require('../utils/CustomApiError')
+const { StatusCodes } = require('http-status-codes')
 
 /**
  * Get all appointments
@@ -28,7 +29,7 @@ const createAppointment = async (appointment) => {
 const getAppointmentById = async (id) => {
   const appoiment = await Appointment.findById(id)
   if (!appoiment) {
-    throw new CustomApiError(404, 'Appointment not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointment not found!')
   }
   return appoiment
 }
@@ -43,7 +44,7 @@ const updateAppointment = async (id, updateBody) => {
   const appointment = await Appointment.findById(id)
 
   if (!appointment) {
-    throw new CustomApiError(404, 'Appointment not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointment not found!')
   }
 
   Object.assign(appointment, updateBody)
@@ -60,7 +61,7 @@ const deleteAppointment = async (id) => {
   const appointment = await Appointment.findById(id)
 
   if (!appointment) {
-    throw new CustomApiError(404, 'Appointment not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointment not found!')
   }
   await appointment.deleteOne()
   return appointment

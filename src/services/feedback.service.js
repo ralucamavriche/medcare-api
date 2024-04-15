@@ -1,5 +1,6 @@
 const Feedback = require('../models/feedback.model')
 const CustomApiError = require('../utils/CustomApiError')
+const { StatusCodes } = require('http-status-codes')
 
 /**
  * Get all feedbacks
@@ -18,7 +19,7 @@ const getFeedbacks = async () => {
 const getFeedbackById = async (id) => {
   const feedback = await Feedback.findById(id)
   if (!feedback) {
-    throw new CustomApiError(404, 'Feedback not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Feedback not found!')
   }
   return feedback
 }
@@ -41,7 +42,7 @@ const createFeedback = async (feedback) => {
 const updateFeedback = async (id, updateBody) => {
   const feedback = await Feedback.findById(id)
   if (!feedback) {
-    throw new CustomApiError(404, 'Feedback not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Feedback not found!')
   }
   Object.assign(feedback, updateBody)
   await feedback.save()
@@ -56,7 +57,7 @@ const updateFeedback = async (id, updateBody) => {
 const deleteFeeback = async (id) => {
   const feedback = await Feedback.findById(id)
   if (!feedback) {
-    throw new CustomApiError(404, 'Feedback not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Feedback not found!')
   }
   await feedback.deleteOne()
   return feedback

@@ -1,5 +1,7 @@
 const User = require('../models/user.model')
 const CustomApiError = require('../utils/CustomApiError')
+const { StatusCodes } = require('http-status-codes')
+
 
 /**
  * Get all users
@@ -27,7 +29,7 @@ const createUser = async (user) => {
 const getUserById = async (id) => {
   const user = await User.findById(id)
   if (!user) {
-    throw new CustomApiError(404, 'User not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'User not found!')
   }
   return user
 }
@@ -40,7 +42,7 @@ const getUserById = async (id) => {
 const deleteUser = async (id) => {
   const user = await User.findById(id)
   if (!user) {
-    throw new CustomApiError(404, 'User not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'User not found!')
   }
   await user.deleteOne()
   return user
@@ -55,7 +57,7 @@ const deleteUser = async (id) => {
 const updateUser = async (id, updateBody) => {
   const user = await User.findById(id)
   if (!user) {
-    throw new CustomApiError(404, 'User not found!')
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'User not found!')
   }
   Object.assign(user, updateBody)
   await user.save()

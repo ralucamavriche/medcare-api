@@ -2,12 +2,12 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Medcare API - OpenAPI 3.0",
-    "description": "This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about\nSwagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!\nYou can now help us improve the API whether it's by making changes to the definition itself or to the code.\nThat way, with time, we can improve the API in general, and expose some of the new features in OAS3.",
+    "description": "You can find out more about\nSwagger at [https://swagger.io](https://swagger.io).",
     "version": "1.0.11"
   },
   "servers": [
     {
-      "url": "http://localhost:5000/"
+      "url": "http://localhost:5000/v1"
     }
   ],
   "tags": [
@@ -17,7 +17,7 @@
     },
     {
       "name": "user",
-      "description": "Everything about your users"
+      "description": "Everything about users"
     },
     {
       "name": "question",
@@ -63,7 +63,7 @@
         "description": "Create a new appointment",
         "operationId": "createAppointment",
         "requestBody": {
-          "description": "Create a new pet in the store",
+          "description": "Create a new appointment",
           "content": {
             "application/json": {
               "schema": {
@@ -109,8 +109,7 @@
             "description": "ID of appointment to return",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -129,7 +128,7 @@
             "description": "Invalid ID supplied"
           },
           "404": {
-            "description": "Pet not found"
+            "description": "Appointment not found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -140,72 +139,17 @@
             "api_key": []
           },
           {
-            "petstore_auth": ["write:pets", "read:pets"]
+            "petstore_auth": ["write:appointments", "read:appointments"]
           }
         ]
-      },
-      "put": {
-        "tags": ["appointment"],
-        "summary": "Update an existing appointment",
-        "description": "Update an existing appointment by Id",
-        "operationId": "updatePet",
-        "requestBody": {
-          "description": "Update an existent appointment in the store",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Appointment"
-              }
-            }
-          },
-          "required": true
-        },
-        "parameters": [
-          {
-            "name": "appointmentId",
-            "in": "path",
-            "description": "ID of appointment to return",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Appointment"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/Appointment"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied"
-          },
-          "404": {
-            "description": "Pet not found"
-          },
-          "422": {
-            "description": "Validation exception"
-          }
-        }
       },
       "patch": {
         "tags": ["appointment"],
         "summary": "Update an existing property for an appointment",
         "description": "Update an existing property for an appointment",
-        "operationId": "updatePet",
+        "operationId": "updateAppoiment",
         "requestBody": {
-          "description": "Update an existent appointment in the store",
+          "description": "Update an existent appointment",
           "content": {
             "application/json": {
               "schema": {
@@ -222,8 +166,7 @@
             "description": "ID of appointment to return",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
@@ -275,14 +218,13 @@
             "description": "Appointment id to delete",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "400": {
-            "description": "Invalid pet value"
+            "description": "Invalid appointment value"
           }
         }
       }
@@ -503,6 +445,206 @@
           }
         }
       }
+    },
+    "/question": {
+      "get": {
+        "tags": ["question"],
+        "summary": "Returns all questions",
+        "description": "Returns all questions",
+        "operationId": "getQuestions",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "post": {
+        "tags": ["question"],
+        "summary": "Create a new question",
+        "description": "Create a new question",
+        "operationId": "createQuestion",
+        "requestBody": {
+          "description": "Create a new question",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "403": {
+            "description": "Authentication failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/question/{questiontId}": {
+      "get": {
+        "tags": ["question"],
+        "summary": "Find question by ID",
+        "description": "Returns a single question",
+        "operationId": "getQuestionById",
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "description": "ID of question to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Question not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": ["question"],
+        "summary": "Update an existing property for an question",
+        "description": "Update an existing property for an question",
+        "operationId": "updateQuestion",
+        "requestBody": {
+          "description": "Update an existent question",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "name": "questionId",
+            "in": "path",
+            "description": "ID of question to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Question not found"
+          },
+          "422": {
+            "description": "Validation exception"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["question"],
+        "summary": "Deletes a question",
+        "description": "delete a question",
+        "operationId": "deleteQuestion",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "header",
+            "description": "",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "questiontId",
+            "in": "path",
+            "description": "Question id to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid question value"
+          },
+          "404": {
+            "description": "Question not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -511,9 +653,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64",
-            "example": 10
+            "type": "string"
           },
           "username": {
             "type": "string",
@@ -546,9 +686,7 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer",
-            "format": "int64",
-            "example": 10
+            "type": "string"
           },
           "title": {
             "type": "string",
@@ -568,8 +706,29 @@
           },
           "status": {
             "type": "string",
-            "description": "appointment status in the store",
+            "description": "Appointment status in the DB",
             "enum": ["available", "pending", "canceled"]
+          }
+        }
+      },
+      "Question": {
+        "required": ["question", "answer"],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string",
+            "example": "How are you?"
+          },
+          "answer": {
+            "type": "string",
+            "example": "I'm good. Thk!"
+          },
+          "author": {
+            "type": "string",
+            "description": "Mihaita"
           }
         }
       }
