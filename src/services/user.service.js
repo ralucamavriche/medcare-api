@@ -35,6 +35,15 @@ const getUserById = async (id) => {
 }
 
 /**
+ * Get User By Email
+ * @param {string} email
+ * @returns {Promise<User>}
+ */
+const getUserByEmail = async (email) => {
+  return User.findOne({ email })
+}
+
+/**
  * Delete user
  * @param {String} id
  * @returns {Promise<User>}
@@ -69,5 +78,6 @@ module.exports = {
   createUser,
   getUserById,
   deleteUser,
-  updateUser
+  updateUser,
+  getUserByEmail
 }

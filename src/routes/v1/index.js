@@ -1,4 +1,5 @@
 const express = require('express')
+const authRoute = require('./auth.route')
 const userRoute = require('./user.route')
 const appointmentRoute = require('./appointment.route')
 const questionRoute = require('./question.route')
@@ -10,6 +11,10 @@ const defaultRoutes = [
   {
     path: '/users',
     route: userRoute
+  },
+  {
+    path: '/auth',
+    route: authRoute
   },
   {
     path: '/appointment',

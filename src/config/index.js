@@ -3,7 +3,26 @@ require('dotenv').config()
 const MONGODB_URL = process.env.MONGODB_URL
 const PORT = process.env.PORT || 5000
 
+const TOKEN_TYPES = {
+  ACCESS: 'ACCESS',
+  REFRESH: 'refresh',
+  RESET_PASSWORD: 'resetPassword',
+  VERIFY_EMAIL: 'verifyEmail'
+}
+
+const JWT = {
+  SECRET: process.env.JWT_SECRET,
+  JWT_ACCESS_EXPIRATION_MINUTES: process.env.JWT_ACCESS_EXPIRATION_MINUTES,
+  JWT_REFRESH_EXPIRATION_DAYS: process.env.JWT_REFRESH_EXPIRATION_DAYS,
+  JWT_RESET_PASSWORD_EXPIRATION_MINUTES:
+    process.env.JWT_RESET_PASSWORD_EXPIRATION_MINUTES,
+  JWT_VERIFY_EMAIL_EXPIRATION_MINUTES:
+    process.env.JWT_VERIFY_EMAIL_EXPIRATION_MINUTES
+}
+
 module.exports = {
   MONGODB_URL,
-  PORT
+  PORT,
+  TOKEN_TYPES,
+  JWT
 }

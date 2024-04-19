@@ -7,6 +7,8 @@ const CustomApiError = require('./utils/CustomApiError')
 const { StatusCodes, ReasonPhrases } = require('http-status-codes')
 
 const swaggerDocument = require('./docs/swagger.json')
+const passport = require('passport')
+const { jwtStrategy } = require('./middlewares/passport')
 
 const app = express()
 
@@ -14,6 +16,9 @@ app.use(express.json())
 
 // add security HTTP headers
 app.use(helmet())
+
+app.use(passport.initialize())
+passport.use('jwt', jwtStrategy)
 
 // cors
 app.use(cors())
