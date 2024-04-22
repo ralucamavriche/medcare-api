@@ -5,7 +5,13 @@ const getUsers = {
   query: Joi.object().keys({
     email: Joi.string().email(),
     password: Joi.string().required().custom(password),
-    role: Joi.string()
+    role: Joi.string(),
+    firstName: Joi.string(),
+    lastName: Joi.string(),
+    phone: Joi.string().optional(),
+    address: Joi.string().optional(),
+    city: Joi.string().optional(),
+    country: Joi.string().optional()
   })
 
 }
@@ -36,7 +42,13 @@ const updateUser = {
   }),
   body: Joi.object().keys({
     email: Joi.string().email(),
-    password: Joi.string().custom(password)
+    password: Joi.string().custom(password),
+    firstName: Joi.string(),
+    lastName: Joi.string(),
+    phone: Joi.string().optional(),
+    address: Joi.string().optional(),
+    city: Joi.string().optional(),
+    country: Joi.string().optional()
   })
 
 }

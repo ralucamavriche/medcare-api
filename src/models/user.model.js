@@ -23,6 +23,18 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  phone: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  city: {
+    type: String
+  },
+  country: {
+    type: String
+  },
   role: {
     type: String,
     default: 'user'

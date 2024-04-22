@@ -19,8 +19,7 @@ const loginWithEmailAndPassword = async (email, password) => {
   if (!isPasswordMatch) {
     throw new CustomApiError(
       httpStatus.BAD_REQUEST,
-      httpStatus[httpStatus.BAD_REQUEST],
-      ['Email or password incorrect']
+      'Email or password incorrect'
     )
   }
   return user
