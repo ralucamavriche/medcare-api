@@ -24,16 +24,20 @@ const userSchema = new Schema({
     required: true
   },
   phone: {
-    type: String
+    type: String,
+    default: null
   },
   address: {
-    type: String
+    type: String,
+    default: null
   },
   city: {
-    type: String
+    type: String,
+    default: null
   },
   country: {
-    type: String
+    type: String,
+    default: null
   },
   role: {
     type: String,

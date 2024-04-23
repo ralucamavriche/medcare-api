@@ -45,10 +45,10 @@ const updateUser = {
     password: Joi.string().custom(password),
     firstName: Joi.string(),
     lastName: Joi.string(),
-    phone: Joi.string().optional(),
-    address: Joi.string().optional(),
-    city: Joi.string().optional(),
-    country: Joi.string().optional()
+    phone: Joi.string().allow('').optional(),
+    address: Joi.string().allow('').optional(),
+    city: Joi.string().allow('').optional(),
+    country: Joi.string().allow('').optional()
   })
 
 }
