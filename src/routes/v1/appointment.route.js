@@ -31,4 +31,11 @@ router
     appointmentController.deleteAppointment
   )
 
+router
+  .route('/user/:userId/appointments')
+  .get(
+    validate(appointmentValidation.getAppointmentsByUserId),
+    appointmentController.getAppointmentsByUserId
+  )
+
 module.exports = router

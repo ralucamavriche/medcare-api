@@ -12,7 +12,7 @@ const getUsers = catchAsync(async (req, res) => {
 
 const createUser = catchAsync(async (req, res) => {
   const { email, password } = req.body
-  const user = await UserService.createUser({ email, password })
+  const user = await UserService.createUser({ email, password})
   res.status(StatusCodes.CREATED).send({
     user
   })

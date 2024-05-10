@@ -4,14 +4,7 @@ const { StatusCodes } = require('http-status-codes')
 
 
 const createAppointment = catchAsync(async (req, res) => {
-  const { title, description, startDate, endDate, author } = req.body
-  const appointment = await appointmentService.createAppointment({
-    title,
-    description,
-    startDate,
-    endDate,
-    author
-  })
+  const appointment = await appointmentService.createAppointment(req.body)
 
   res.status(StatusCodes.CREATED).send({
     appointment
@@ -30,6 +23,14 @@ const getAppointmentById = catchAsync(async (req, res) => {
   const appointment = await appointmentService.getAppointmentById(id)
   res.status(StatusCodes.OK).send({
     appointment
+  })
+})
+
+const getAppointmentsByUserId = catchAsync(async (req, res) => {
+  const userId = req.params.userId
+  const appointments = await appointmentService.getAppointmentsByUserId(userId)
+  res.status(StatusCodes.OK).send({
+    appointments
   })
 })
 
@@ -53,6 +54,7 @@ module.exports = {
   createAppointment,
   getAppointments,
   getAppointmentById,
+  getAppointmentsByUserId,
   updateAppointment,
   deleteAppointment
 }

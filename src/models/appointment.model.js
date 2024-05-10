@@ -3,6 +3,10 @@ const { toJSON } = require('./shared')
 const Schema = mongoose.Schema
 
 const AppointmentSchema = new Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+ },
   title: {
     type: String,
     required: true
@@ -24,7 +28,7 @@ const AppointmentSchema = new Schema({
   },
   status: {
     type: String,
-    default: 'pending'
+    default: 'PENDING'
   }
 })
 

@@ -27,11 +27,24 @@ const createAppointment = async (appointment) => {
  * @returns {Promise<Appointment>}
  */
 const getAppointmentById = async (id) => {
-  const appoiment = await Appointment.findById(id)
+  const appoiment = await Appointment.findById(id).populate('userId')
   if (!appoiment) {
     throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointment not found!')
   }
   return appoiment
+}
+
+/**
+ * Get all appointments by userId
+ * @param {String} userId
+ * @returns {Promise<Appointment>}
+ */
+const getAppointmentsByUserId = async (userId) => {
+  const appoiments = await Appointment.find({userId})
+  if (!appoiments) {
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointments not found!')
+  }
+  return appoiments
 }
 
 /**
@@ -71,6 +84,7 @@ module.exports = {
   getAppointments,
   createAppointment,
   getAppointmentById,
+  getAppointmentsByUserId,
   updateAppointment,
   deleteAppointment
 }
