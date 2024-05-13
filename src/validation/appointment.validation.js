@@ -8,7 +8,8 @@ const createAppointment = {
     description: Joi.string(),
     startDate: Joi.date().required(),
     endDate: Joi.date().required(),
-    author: Joi.string().required()
+    author: Joi.string().required(),
+    status: Joi.string().valid('PENDING').required()
   })
 }
 
@@ -34,7 +35,7 @@ const updateAppointment = {
     startDate: Joi.date(),
     endDate: Joi.date(),
     author: Joi.string(),
-    status: Joi.string().valid('accepted', 'rejected')
+    status: Joi.string().required().valid('PENDING', 'REJECTED', 'ACCEPTED')
   })
 }
 
