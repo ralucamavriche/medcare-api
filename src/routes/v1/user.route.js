@@ -7,7 +7,6 @@ const userValidation = require('../../validation/user.validation')
 router
   .route('/')
   .get(
-    // validate(userValidation.getUsers),
     userController.getUsers
   )
   .post(validate(userValidation.createUser), userController.createUser)

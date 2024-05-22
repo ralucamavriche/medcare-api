@@ -6,7 +6,10 @@ const registerSchema = {
     email: Joi.string().email().required(),
     password: Joi.string().required().custom(password),
     firstName: Joi.string().required(),
-    lastName: Joi.string().required()
+    lastName: Joi.string().required(),
+    medicalLicenseNumber: Joi.string().allow('').optional(),
+    role: Joi.string().required().valid('user', 'doctor')
+
   })
 }
 

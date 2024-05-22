@@ -11,7 +11,10 @@ const getUsers = {
     phone: Joi.string().optional(),
     address: Joi.string().optional(),
     city: Joi.string().optional(),
-    country: Joi.string().optional()
+    country: Joi.string().optional(),
+    medicalLicenseNumber: Joi.string().optional(),
+    status: Joi.string().required()
+
   })
 
 }
@@ -25,7 +28,11 @@ const getUserById = {
 const createUser = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().custom(password).required()
+    password: Joi.string().custom(password).required(),
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    medicalLicenseNumber: Joi.string().optional()
+
   })
 }
 
@@ -48,7 +55,10 @@ const updateUser = {
     phone: Joi.string().allow('').optional(),
     address: Joi.string().allow('').optional(),
     city: Joi.string().allow('').optional(),
-    country: Joi.string().allow('').optional()
+    country: Joi.string().allow('').optional(),
+    medicalLicenseNumber: Joi.string().optional(),
+    status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED')
+
   })
 
 }

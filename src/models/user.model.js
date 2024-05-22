@@ -39,9 +39,16 @@ const userSchema = new Schema({
     type: String,
     default: null
   },
+  medicalLicenseNumber: {
+    type: String
+  },
   role: {
     type: String,
     default: 'user'
+  },
+  status: {
+    type: String,
+    default: 'PENDING'
   }
 })
 
