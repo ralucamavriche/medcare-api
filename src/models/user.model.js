@@ -42,6 +42,10 @@ const userSchema = new Schema({
   medicalLicenseNumber: {
     type: String
   },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  },
   role: {
     type: String,
     default: 'user'

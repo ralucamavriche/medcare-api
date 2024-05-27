@@ -13,6 +13,7 @@ const getUsers = {
     city: Joi.string().optional(),
     country: Joi.string().optional(),
     medicalLicenseNumber: Joi.string().optional(),
+    role: Joi.string(),
     status: Joi.string().required()
 
   })
@@ -31,7 +32,8 @@ const createUser = {
     password: Joi.string().custom(password).required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
-    medicalLicenseNumber: Joi.string().optional()
+    medicalLicenseNumber: Joi.string().optional(),
+    role: Joi.string().optional()
 
   })
 }
@@ -58,7 +60,6 @@ const updateUser = {
     country: Joi.string().allow('').optional(),
     medicalLicenseNumber: Joi.string().optional(),
     status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED')
-
   })
 
 }

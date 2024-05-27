@@ -6,9 +6,7 @@ const userValidation = require('../../validation/user.validation')
 
 router
   .route('/')
-  .get(
-    userController.getUsers
-  )
+  .get(userController.getUsers)
   .post(validate(userValidation.createUser), userController.createUser)
 
 router
@@ -16,5 +14,13 @@ router
   .get(validate(userValidation.getUserById), userController.getUserById)
   .delete(validate(userValidation.deleteUser), userController.deleteUser)
   .patch(validate(userValidation.updateUser), userController.updateUser)
+
+router
+  .route('/doctors/pending')
+  .get(userController.getDoctorAccountsInPendingState)
+
+router
+  .route('/patients/pending')
+  .get(userController.getPatientAccountsInPendingState)
 
 module.exports = router

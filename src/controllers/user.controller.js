@@ -40,10 +40,28 @@ const updateUser = catchAsync(async (req, res) => {
   })
 })
 
+const getDoctorAccountsInPendingState = catchAsync(async (req, res) => {
+  const doctors = await UserService.getDoctorAccountsInPendingState()
+
+  res.status(StatusCodes.OK).send({
+    doctors
+  })
+})
+
+const getPatientAccountsInPendingState = catchAsync(async (req, res) => {
+  const patients = await UserService.getPatientAccountsInPendingState()
+
+  res.status(StatusCodes.OK).send({
+    patients
+  })
+})
+
 module.exports = {
   getUsers,
   createUser,
   getUserById,
   deleteUser,
-  updateUser
+  updateUser,
+  getDoctorAccountsInPendingState,
+  getPatientAccountsInPendingState
 }

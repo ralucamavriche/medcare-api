@@ -73,11 +73,32 @@ const updateUser = async (id, updateBody) => {
   return user
 }
 
+/**
+ * Get all doctor accounts in PENDING state
+ * @returns {Promise<User>}
+ */
+const getDoctorAccountsInPendingState = async () => {
+  const doctors = await User.find({ role: 'doctor', status: 'PENDING' })
+  return doctors
+}
+
+/**
+ * Get all patient accounts in PENDING state
+ * @returns {Promise<User>}
+ */
+const getPatientAccountsInPendingState = async () => {
+  const patients = await User.find({ role: 'user', status: 'PENDING' })
+  return patients
+}
+
 module.exports = {
   getUsers,
   createUser,
   getUserById,
   deleteUser,
   updateUser,
-  getUserByEmail
+  getUserByEmail,
+  getDoctorAccountsInPendingState,
+  getPatientAccountsInPendingState
+  
 }
