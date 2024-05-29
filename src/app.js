@@ -46,7 +46,7 @@ app.use((req, __, next) => {
   )
 })
 
-app.use((err, _, res, __) => {
+app.use((err, _, res) => {
   const {
     message = ReasonPhrases.INTERNAL_SERVER_ERROR,
     statusCode = StatusCodes.INTERNAL_SERVER_ERROR

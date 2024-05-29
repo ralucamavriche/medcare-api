@@ -13,8 +13,8 @@ const getUsers = {
     city: Joi.string().optional(),
     country: Joi.string().optional(),
     medicalLicenseNumber: Joi.string().optional(),
-    role: Joi.string(),
-    status: Joi.string().required()
+    status: Joi.string().required(),
+    requestedDoctorStatus: Joi.string()
 
   })
 
@@ -59,7 +59,10 @@ const updateUser = {
     city: Joi.string().allow('').optional(),
     country: Joi.string().allow('').optional(),
     medicalLicenseNumber: Joi.string().optional(),
-    status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED')
+    status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED'),
+    requestedDoctorStatus: Joi.string(),
+    doctorId: Joi.string().allow('').optional(),
+    role: Joi.string().optional()
   })
 
 }

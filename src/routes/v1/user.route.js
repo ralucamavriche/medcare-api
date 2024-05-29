@@ -16,11 +16,15 @@ router
   .patch(validate(userValidation.updateUser), userController.updateUser)
 
 router
-  .route('/doctors/pending')
-  .get(userController.getDoctorAccountsInPendingState)
+  .route('/doctors/:status')
+  .get(userController.getDoctorAccountsWithSpecificStatus)
 
 router
-  .route('/patients/pending')
-  .get(userController.getPatientAccountsInPendingState)
+  .route('/patients/:requestedDoctorStatus')
+  .get(userController.getPatientBasedOnRequestedStatus)
+
+router
+  .route('/patients/:id')
+  .get(userController.getPatientsByDoctorId)
 
 module.exports = router

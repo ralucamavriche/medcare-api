@@ -109,7 +109,7 @@ describe('appointment.service', () => {
 
       // Call the getAppointmentById function with a non-existing appointmentId
       const nonExistingId = '456'
-      await expect(getAppointmentById(nonExistingId)).rejects.toThrowError(
+      await expect(getAppointmentById(nonExistingId)).rejects.toThrow(
         new CustomApiError(404, 'Appointment not found!')
       )
 
@@ -177,7 +177,7 @@ describe('appointment.service', () => {
 
       // Call the updateAppointment function with a non-existing appointmentId
       const nonExistingId = '456'
-      await expect(updateAppointment(nonExistingId, {})).rejects.toThrowError(
+      await expect(updateAppointment(nonExistingId, {})).rejects.toThrow(
         new CustomApiError(404, 'Appointment not found!')
       )
 

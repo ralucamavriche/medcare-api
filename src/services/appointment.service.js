@@ -40,7 +40,7 @@ const getAppointmentById = async (id) => {
  * @returns {Promise<Appointment>}
  */
 const getAppointmentsByUserId = async (userId) => {
-  const appoiments = await Appointment.find({userId})
+  const appoiments = await Appointment.find({ userId })
   if (!appoiments) {
     throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointments not found!')
   }

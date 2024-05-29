@@ -4,7 +4,6 @@ const { StatusCodes } = require('http-status-codes')
 
 const getUsers = catchAsync(async (req, res) => {
   const users = await UserService.getUsers(req.body)
-
   res.status(StatusCodes.OK).send({
     users
   })
@@ -35,22 +34,31 @@ const updateUser = catchAsync(async (req, res) => {
   const id = req.params.id
   const updateBody = req.body
   const user = await UserService.updateUser(id, updateBody)
-  res.status(StatusCodes.OK).send({
+  res.status(StatusCodes.OK).send(
     user
-  })
+  )
 })
 
-const getDoctorAccountsInPendingState = catchAsync(async (req, res) => {
-  const doctors = await UserService.getDoctorAccountsInPendingState()
+const getDoctorAccountsWithSpecificStatus = catchAsync(async (req, res) => {
+  const doctorStatus = req.params.status
+  const doctors = await UserService.getDoctorAccountsWithSpecificStatus(doctorStatus.toUpperCase())
 
   res.status(StatusCodes.OK).send({
     doctors
   })
 })
 
-const getPatientAccountsInPendingState = catchAsync(async (req, res) => {
-  const patients = await UserService.getPatientAccountsInPendingState()
+const getPatientBasedOnRequestedStatus = catchAsync(async (req, res) => {
+  const requestedStatus = req.params.requestedDoctorStatus
+  const patients = await UserService.getPatientBasedOnRequestedStatus(requestedStatus.toUpperCase())
+  res.status(StatusCodes.OK).send({
+    patients
+  })
+})
 
+const getPatientsByDoctorId = catchAsync(async (req, res) => {
+  const doctorId = req.params.doctorId
+  const patients = await UserService.getPatientsByDoctorId(doctorId)
   res.status(StatusCodes.OK).send({
     patients
   })
@@ -62,6 +70,7 @@ module.exports = {
   getUserById,
   deleteUser,
   updateUser,
-  getDoctorAccountsInPendingState,
-  getPatientAccountsInPendingState
+  getDoctorAccountsWithSpecificStatus,
+  getPatientBasedOnRequestedStatus,
+  getPatientsByDoctorId
 }

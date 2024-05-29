@@ -2,7 +2,6 @@ const { appointmentService } = require('../services')
 const catchAsync = require('../utils/catchAsync')
 const { StatusCodes } = require('http-status-codes')
 
-
 const createAppointment = catchAsync(async (req, res) => {
   const appointment = await appointmentService.createAppointment(req.body)
 

@@ -2,7 +2,6 @@ const User = require('../models/user.model')
 const CustomApiError = require('../utils/CustomApiError')
 const { StatusCodes } = require('http-status-codes')
 
-
 /**
  * Get all users
  * @returns {Promise<User>}
@@ -72,22 +71,31 @@ const updateUser = async (id, updateBody) => {
   await user.save()
   return user
 }
-
 /**
- * Get all doctor accounts in PENDING state
+ * Get all doctor accounts in specific status
+ * Status: PENDING, REJECTED, ACCEPTED
  * @returns {Promise<User>}
  */
-const getDoctorAccountsInPendingState = async () => {
-  const doctors = await User.find({ role: 'doctor', status: 'PENDING' })
+const getDoctorAccountsWithSpecificStatus = async (status) => {
+  const doctors = await User.find({ role: 'doctor', status })
   return doctors
 }
 
 /**
- * Get all patient accounts in PENDING state
+ * Get all patient accounts with requestedDoctorStatus = NOT_SENT, SENT, ACCEPTED, REJECTED
  * @returns {Promise<User>}
  */
-const getPatientAccountsInPendingState = async () => {
-  const patients = await User.find({ role: 'user', status: 'PENDING' })
+const getPatientBasedOnRequestedStatus = async (requestedStatus) => {
+  const patients = await User.find({ role: 'user', requestedDoctorStatus: requestedStatus })
+  return patients
+}
+
+/**
+ * API endpoint to get patients based on doctorId
+ * @returns {Promise<User>}
+ */
+const getPatientsByDoctorId = async (doctorId) => {
+  const patients = await User.find({ role: 'user', doctorId, requestedDoctorStatus: 'ACCEPTED' })
   return patients
 }
 
@@ -98,7 +106,8 @@ module.exports = {
   deleteUser,
   updateUser,
   getUserByEmail,
-  getDoctorAccountsInPendingState,
-  getPatientAccountsInPendingState
-  
+  getDoctorAccountsWithSpecificStatus,
+  getPatientBasedOnRequestedStatus,
+  getPatientsByDoctorId
+
 }

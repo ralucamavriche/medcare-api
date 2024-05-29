@@ -46,6 +46,11 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  doctorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    default: null
+  },
   role: {
     type: String,
     default: 'user'
@@ -53,6 +58,12 @@ const userSchema = new Schema({
   status: {
     type: String,
     default: 'PENDING'
+  },
+  requestedDoctorStatus: {
+    // NOT_SENT, SENT, ACCEPTED, REJECTED
+    type: String,
+    default: 'NOT_SENT'
+
   }
 })
 

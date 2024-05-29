@@ -2,7 +2,6 @@ const Question = require('../models/question.model')
 const CustomApiError = require('../utils/CustomApiError')
 const { StatusCodes } = require('http-status-codes')
 
-
 /**
  * Get all guestions
  * @returns {Promise<Question>}
