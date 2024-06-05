@@ -1,0 +1,18 @@
+const ROLES = {
+  ADMIN: 'ADMIN',
+  DOCTOR: 'DOCTOR',
+  PATIENT: 'PATIENT'
+}
+
+const REQUEST_STATUSES = {
+  ACCEPTED: 'ACCEPTED',
+  NOT_SENT: 'NOT_SENT',
+  REJECTED: 'REJECTED',
+  SENT: 'SENT',
+  PENDING: 'PENDING'
+}
+
+module.exports = {
+  ROLES,
+  REQUEST_STATUSES
+}

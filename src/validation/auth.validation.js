@@ -8,8 +8,7 @@ const registerSchema = {
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     medicalLicenseNumber: Joi.string().allow('').optional(),
-    role: Joi.string().required().valid('user', 'doctor')
-
+    role: Joi.string().required().valid('PATIENT', 'DOCTOR')
   })
 }
 

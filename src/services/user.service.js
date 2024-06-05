@@ -1,3 +1,4 @@
+const { ROLES, REQUEST_STATUSES } = require('../constants')
 const User = require('../models/user.model')
 const CustomApiError = require('../utils/CustomApiError')
 const { StatusCodes } = require('http-status-codes')
@@ -77,16 +78,16 @@ const updateUser = async (id, updateBody) => {
  * @returns {Promise<User>}
  */
 const getDoctorAccountsWithSpecificStatus = async (status) => {
-  const doctors = await User.find({ role: 'doctor', status })
+  const doctors = await User.find({ role: ROLES.DOCTOR, status })
   return doctors
 }
 
 /**
- * Get all patient accounts with requestedDoctorStatus = NOT_SENT, SENT, ACCEPTED, REJECTED
+ * Get all patient accounts with requestedDoctorStatus
  * @returns {Promise<User>}
  */
 const getPatientBasedOnRequestedStatus = async (requestedStatus) => {
-  const patients = await User.find({ role: 'user', requestedDoctorStatus: requestedStatus })
+  const patients = await User.find({ role: ROLES.PATIENT, requestedDoctorStatus: requestedStatus })
   return patients
 }
 
@@ -95,7 +96,7 @@ const getPatientBasedOnRequestedStatus = async (requestedStatus) => {
  * @returns {Promise<User>}
  */
 const getPatientsByDoctorId = async (doctorId) => {
-  const patients = await User.find({ role: 'user', doctorId, requestedDoctorStatus: 'ACCEPTED' })
+  const patients = await User.find({ role: ROLES.PATIENT, doctorId, requestedDoctorStatus: REQUEST_STATUSES.ACCEPTED })
   return patients
 }
 

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const { toJSON } = require('./shared')
+const { REQUEST_STATUSES, ROLES } = require('../constants')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -53,16 +54,15 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: 'user'
+    default: ROLES.PATIENT
   },
   status: {
     type: String,
-    default: 'PENDING'
+    default: REQUEST_STATUSES.PENDING
   },
   requestedDoctorStatus: {
-    // NOT_SENT, SENT, ACCEPTED, REJECTED
     type: String,
-    default: 'NOT_SENT'
+    default: REQUEST_STATUSES.NOT_SENT
 
   }
 })

@@ -33,8 +33,7 @@ const createUser = {
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     medicalLicenseNumber: Joi.string().optional(),
-    role: Joi.string().optional()
-
+    role: Joi.string().optional().valid('PATIENT', 'DOCTOR')
   })
 }
 
@@ -62,7 +61,7 @@ const updateUser = {
     status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED'),
     requestedDoctorStatus: Joi.string(),
     doctorId: Joi.string().allow('').optional(),
-    role: Joi.string().optional()
+    role: Joi.string().optional().valid('PATIENT', 'DOCTOR')
   })
 
 }

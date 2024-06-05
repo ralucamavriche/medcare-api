@@ -24,7 +24,7 @@ router
   .get(userController.getPatientBasedOnRequestedStatus)
 
 router
-  .route('/patients/:id')
+  .route('/patients/getPatientsByDoctorId/:doctorId')
   .get(userController.getPatientsByDoctorId)
 
 module.exports = router

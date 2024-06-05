@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { toJSON } = require('./shared')
+const { REQUEST_STATUSES } = require('../constants')
 const Schema = mongoose.Schema
 
 const AppointmentSchema = new Schema({
@@ -28,7 +29,7 @@ const AppointmentSchema = new Schema({
   },
   status: {
     type: String,
-    default: 'PENDING'
+    default: REQUEST_STATUSES.PENDING
   }
 })
 
