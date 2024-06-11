@@ -38,4 +38,11 @@ router
     appointmentController.getAppointmentsByUserId
   )
 
+router
+  .route('/doctor/:doctorId/appointments')
+  .get(
+    validate(appointmentValidation.getAppointmentsByDoctorId),
+    appointmentController.getAppointmentsByDoctorId
+  )
+
 module.exports = router

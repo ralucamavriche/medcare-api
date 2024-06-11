@@ -8,6 +8,10 @@ const AppointmentSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
+  doctorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user'
+  },
   title: {
     type: String,
     required: true
@@ -21,10 +25,6 @@ const AppointmentSchema = new Schema({
   },
   endDate: {
     type: Date,
-    required: true
-  },
-  author: {
-    type: String,
     required: true
   },
   status: {

@@ -33,6 +33,14 @@ const getAppointmentsByUserId = catchAsync(async (req, res) => {
   })
 })
 
+const getAppointmentsByDoctorId = catchAsync(async (req, res) => {
+  const doctorId = req.params.doctorId
+  const appointments = await appointmentService.getAppointmentsByDoctorId(doctorId)
+  res.status(StatusCodes.OK).send({
+    appointments
+  })
+})
+
 const updateAppointment = catchAsync(async (req, res) => {
   const id = req.params.id
   const updateBody = req.body
@@ -55,5 +63,6 @@ module.exports = {
   getAppointmentById,
   getAppointmentsByUserId,
   updateAppointment,
-  deleteAppointment
+  deleteAppointment,
+  getAppointmentsByDoctorId
 }

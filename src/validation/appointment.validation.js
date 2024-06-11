@@ -4,11 +4,11 @@ const { objectId } = require('./custom.validation')
 const createAppointment = {
   body: Joi.object().keys({
     userId: Joi.string().custom(objectId).required(),
+    doctorId: Joi.string().custom(objectId).required(),
     title: Joi.string().required(),
     description: Joi.string(),
     startDate: Joi.date().required(),
     endDate: Joi.date().required(),
-    author: Joi.string().required(),
     status: Joi.string().valid('PENDING').required()
   })
 }
@@ -22,6 +22,12 @@ const getAppointmentById = {
 const getAppointmentsByUserId = {
   params: Joi.object().keys({
     userId: Joi.string().custom(objectId)
+  })
+}
+
+const getAppointmentsByDoctorId = {
+  params: Joi.object().keys({
+    doctorId: Joi.string().custom(objectId)
   })
 }
 
@@ -50,5 +56,6 @@ module.exports = {
   getAppointmentById,
   updateAppointment,
   deleteAppointment,
-  getAppointmentsByUserId
+  getAppointmentsByUserId,
+  getAppointmentsByDoctorId
 }

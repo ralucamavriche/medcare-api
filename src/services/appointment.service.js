@@ -48,6 +48,19 @@ const getAppointmentsByUserId = async (userId) => {
 }
 
 /**
+ * Get all appointments by doctorId
+ * @param {String} userId
+ * @returns {Promise<Appointment>}
+ */
+const getAppointmentsByDoctorId = async (doctorId) => {
+  const appoiments = await Appointment.find({ doctorId })
+  if (!appoiments) {
+    throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointments not found!')
+  }
+  return appoiments
+}
+
+/**
  * Update appointment
  * @param {String} id
  * @param {Object} updateBody
@@ -86,5 +99,6 @@ module.exports = {
   getAppointmentById,
   getAppointmentsByUserId,
   updateAppointment,
-  deleteAppointment
+  deleteAppointment,
+  getAppointmentsByDoctorId
 }
