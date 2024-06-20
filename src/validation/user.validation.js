@@ -33,7 +33,7 @@ const createUser = {
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
     medicalLicenseNumber: Joi.string().optional(),
-    role: Joi.string().optional().valid('PATIENT', 'DOCTOR')
+    role: Joi.string().optional().valid('PATIENT', 'DOCTOR', 'ADMIN')
   })
 }
 

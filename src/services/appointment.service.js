@@ -40,7 +40,7 @@ const getAppointmentById = async (id) => {
  * @returns {Promise<Appointment>}
  */
 const getAppointmentsByUserId = async (userId) => {
-  const appoiments = await Appointment.find({ userId })
+  const appoiments = await Appointment.find({ userId }).populate('userId')
   if (!appoiments) {
     throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointments not found!')
   }
@@ -53,7 +53,7 @@ const getAppointmentsByUserId = async (userId) => {
  * @returns {Promise<Appointment>}
  */
 const getAppointmentsByDoctorId = async (doctorId) => {
-  const appoiments = await Appointment.find({ doctorId })
+  const appoiments = await Appointment.find({ doctorId }).populate('userId').populate('doctorId')
   if (!appoiments) {
     throw new CustomApiError(StatusCodes.NOT_FOUND, 'Appointments not found!')
   }
