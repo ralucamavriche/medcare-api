@@ -6,6 +6,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "build": "standard",
+    "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "lint": "standard",
     "lint:js": "standard \"src/**/*.js\"",
