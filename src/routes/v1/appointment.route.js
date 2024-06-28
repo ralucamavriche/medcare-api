@@ -12,7 +12,6 @@ router
   )
   .get(
     validate(appointmentValidation.getAppointments),
-
     appointmentController.getAppointments
   )
 
@@ -39,10 +38,19 @@ router
   )
 
 router
+  .route('/doctor2/:doctorId/appointments/:userId')
+  .get(
+    validate(appointmentValidation.getAppointmentsByDoctorIdAndUserId),
+    appointmentController.getAppointmentsByDoctorIdAndUserId
+  )
+
+router
   .route('/doctor/:doctorId/appointments')
   .get(
     validate(appointmentValidation.getAppointmentsByDoctorId),
     appointmentController.getAppointmentsByDoctorId
   )
+
+
 
 module.exports = router

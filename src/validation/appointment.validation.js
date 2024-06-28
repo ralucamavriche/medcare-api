@@ -31,6 +31,13 @@ const getAppointmentsByDoctorId = {
   })
 }
 
+const getAppointmentsByDoctorIdAndUserId = {
+  params: Joi.object().keys({
+    doctorId: Joi.string().custom(objectId),
+    userId: Joi.string().custom(objectId)
+  })
+}
+
 const updateAppointment = {
   params: Joi.object().keys({
     id: Joi.string().custom(objectId)
@@ -57,5 +64,6 @@ module.exports = {
   updateAppointment,
   deleteAppointment,
   getAppointmentsByUserId,
-  getAppointmentsByDoctorId
+  getAppointmentsByDoctorId,
+  getAppointmentsByDoctorIdAndUserId
 }
