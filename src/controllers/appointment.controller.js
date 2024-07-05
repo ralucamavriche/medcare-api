@@ -18,6 +18,14 @@ const getAppointments = catchAsync(async (req, res) => {
   });
 });
 
+const getAppointmentsByStatus = catchAsync(async (req, res) => {
+  const status= req.query.status;
+  const appointments = await appointmentService.getAppointmentsByStatus(status);
+  res.status(StatusCodes.OK).send({
+    appointments,
+  });
+});
+
 const getAppointmentById = catchAsync(async (req, res) => {
   const id = req.params.id;
   const appointment = await appointmentService.getAppointmentById(id);
@@ -100,4 +108,5 @@ module.exports = {
   deleteAppointment,
   getAppointmentsByDoctorId,
   getAppointmentsByDoctorIdAndUserId,
+  getAppointmentsByStatus
 };

@@ -12,6 +12,14 @@ const getAppointments = async () => {
 }
 
 /**
+ * Get all appointments by status
+ * @returns {Promise<Appointment>}
+ */
+const getAppointmentsByStatus = async (status) => {
+  return await Appointment.find({status})
+}
+
+/**
  * Create an appointment
  * @param {Object} appointment
  * @returns {Promise<Appointment>}
@@ -100,5 +108,6 @@ module.exports = {
   getAppointmentsByUserId,
   updateAppointment,
   deleteAppointment,
-  getAppointmentsByDoctorId
+  getAppointmentsByDoctorId,
+  getAppointmentsByStatus
 }

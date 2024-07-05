@@ -5,7 +5,6 @@ const catchAsync = require('../utils/catchAsync')
 const register = catchAsync(async (req, res) => {
   const user = await UserService.createUser({
     ...req.body,
-    firstName: `${req.body.password}`
   })
   const token = await TokenService.generateAuthToken(user)
 

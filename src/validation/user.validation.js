@@ -4,7 +4,7 @@ const { password, objectId } = require('./custom.validation')
 const getUsers = {
   query: Joi.object().keys({
     email: Joi.string().email(),
-    password: Joi.string().required().custom(password),
+    password: Joi.string().custom(password),
     role: Joi.string(),
     firstName: Joi.string(),
     lastName: Joi.string(),
@@ -13,7 +13,7 @@ const getUsers = {
     city: Joi.string().optional(),
     country: Joi.string().optional(),
     medicalLicenseNumber: Joi.string().optional(),
-    status: Joi.string().required(),
+    status: Joi.string(),
     requestedDoctorStatus: Joi.string()
 
   })
@@ -32,6 +32,10 @@ const createUser = {
     password: Joi.string().custom(password).required(),
     firstName: Joi.string().required(),
     lastName: Joi.string().required(),
+    phone: Joi.string().optional(),
+    address: Joi.string().optional(),
+    city: Joi.string().optional(),
+    country: Joi.string().optional(),
     medicalLicenseNumber: Joi.string().optional(),
     role: Joi.string().optional().valid('PATIENT', 'DOCTOR', 'ADMIN')
   })
@@ -60,8 +64,8 @@ const updateUser = {
     medicalLicenseNumber: Joi.string().optional(),
     status: Joi.string().valid('PENDING', 'REJECTED', 'ACCEPTED'),
     requestedDoctorStatus: Joi.string(),
-    doctorId: Joi.string().allow('').optional(),
-    role: Joi.string().optional().valid('PATIENT', 'DOCTOR')
+    doctorId: Joi.string().allow(null).optional(),
+    role: Joi.string().optional()
   })
 
 }
